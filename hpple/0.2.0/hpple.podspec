@@ -13,9 +13,9 @@ Inspired by why the lucky stiff's Hpricot.
   s.homepage     = "https://github.com/topfunky/hpple"
   s.license      = 'MIT'
   s.author       = { "Geoffrey Grosenbach" => "email@address.com" }
-  s.source       = { :git => "https://github.com/topfunky/hpple.git", :commit => "d9940bace4afd65bc7b5baa076878b7d95b356b5" }
+  s.source       = { :git => "https://github.com/topfunky/hpple.git", :tag => "0.2.0" }
   s.source_files = 'TFHpple.{h,m}', 'TFHppleElement.{h,m}', 'XPathQuery.{h,m}'
   s.requires_arc = true
-  s.library      = 'xml2.2'
+  s.library      = 'xml2'
   s.xcconfig     = { 'HEADER_SEARCH_PATHS' => '$(SDKROOT)/usr/include/libxml2' }
 end

@@ -4,7 +4,7 @@ Pod::Spec.new do |s|
   s.summary      = "A framework for composing and transforming sequences of values."
   s.homepage     = "https://github.com/blog/1107-reactivecocoa-is-now-open-source"
   s.author       = { "Josh Abernathy" => "josh@github.com" }
-  s.source       = { :git => "https://github.com/github/ReactiveCocoa.git", :tag => "v#{s.version}" }
+  s.source       = { :git => "https://github.com/ReactiveCocoa/ReactiveCocoa.git", :tag => "v#{s.version}" }
   s.license      = 'Simplified BSD License'
   s.description  = "ReactiveCocoa offers:\n"                                                               \
                    "1. The ability to compose operations on future data.\n"                                \
@@ -18,9 +18,9 @@ Pod::Spec.new do |s|
   s.compiler_flags = '-DOS_OBJECT_USE_OBJC=0'
 
   s.subspec 'Core' do |sp|
-    files = FileList['ReactiveCocoaFramework/ReactiveCocoa/*.{h,m}']
-    sp.ios.source_files = files.dup.exclude(/NSButton/, /AppKit/)
-    sp.osx.source_files = files.dup.exclude(/UIControl/, /UIText/, /RACEventTrampoline/, /RACDelegateProxy/)
+    s.source_files = 'ReactiveCocoaFramework/ReactiveCocoa/*.{h,m}'
+    s.ios.exclude_files = '**/*{NSButton,AppKit}*'
+    s.osx.exclude_files = '**/*{UIControl,UIText,RACEventTrampoline,RACDelegateProxy}*'
     sp.header_dir = 'ReactiveCocoa'
 
     sp.dependency 'JRSwizzle', '~> 1.0'
@@ -30,17 +30,16 @@ Pod::Spec.new do |s|
   end
 
   s.subspec 'RACExtensions' do |sp|
-    files = FileList['RACExtensions/*.{h,m}']
-    sp.ios.source_files = files.dup.exclude(/NSTask/)
-    sp.osx.source_files = files
+    sp.source_files = 'RACExtensions/*.{h,m}'
+    sp.ios.exclude_files = '**/*{NSTask}*'
     sp.dependency 'ReactiveCocoa/Core'
   end
 
   def s.pre_install (pod, _)
-    pod.header_files.each { |header|
-      contents = header.read
-      if contents.gsub!(%r{ReactiveCocoa/(?:\w+/)*(EXT\w+|metamacros)\.h}, '\1.h')
-        File.open(header, 'w') { |file| file.puts(contents) }
+    pod.source_files.each { |source|
+      contents = source.read
+      if contents.gsub!(%r{\bReactiveCocoa/(?:\w+/)*(EXT\w+|metamacros)\.h\b}, '\1.h')
+        File.open(source, 'w') { |file| file.puts(contents) }
       end
     }
   end
