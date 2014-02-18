@@ -12,6 +12,7 @@ Pod::Spec.new do |s|
     'evernote-sdk-ios/{EDAM,Utilities,internal}/**/*.{h,m}',
     'evernote-sdk-ios/3rdParty/{AFNetworking,KSHTMLWriter,NSString+URLEncoding,Thrift,cocoa-oauth}/**/*.{h,m}'
   s.frameworks = 'Foundation', 'Security', 'StoreKit','MobileCoreServices'
+  s.resources = 'evernote-sdk-ios/internal/Resources/*.strings'
   s.libraries = 'xml2'
   s.xcconfig     = { 'HEADER_SEARCH_PATHS' => '"$(SDKROOT)/usr/include/libxml2"' }
 
